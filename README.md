@@ -72,8 +72,8 @@ query {
 Just specify a category and boom.
 
 ```
-mutation {
-    findByCategory(category: "food") {
+query findByCategory($category: String!) {
+    findByCategory(category: $category) {
         value
     }
 }
@@ -84,8 +84,8 @@ mutation {
 Just specify anything as a query
 
 ```
-mutation {
-    searchJoke(query: "norris") {
+query searchJoke($query: String!) {
+    searchJoke(query: $query) {
         value
     }
 }

@@ -59,50 +59,42 @@ const RootQueryType = new GraphQLObjectType({
         .catch( (err:any) => console.log(err));
       }
     },
+    findByCategory: {
+      type: joke_obj,
+      description: 'Find a joke by category',
+      args: {
+        category: {type: GraphQLNonNull(GraphQLString)}
+      },
+      resolve: (parent, args) => {
+        return fetchResponseByURL(`/random?category=${args.category}`)
+        .then((res: Joke) => {
+          console.log('findByCategory: ', res);
+          return res;
+        })
+        .catch( (err:any) => console.log(err));
+      }
+    },
+    searchJoke: {
+      type: new GraphQLList(joke_obj),
+      description: 'Search for a joke. Free text search',
+      args: {
+        query: {type: GraphQLNonNull(GraphQLString)}
+      },
+      resolve: (parent, args) => {
+        return fetchResponseByURL(`/random?search?query=${args.query}`)
+        .then((res:any) => {
+          console.log('searchJoke: ',res);
+          return [res];
+        })
+        .catch( (err:any) => console.log(err));
+      }
+    }
   })
   
 });
 
-const RootMutationType = new GraphQLObjectType({
-  name: 'Mutation',
-  description: 'Root Mutation',
-  fields: () => ({
-      findByCategory: {
-        type: joke_obj,
-        description: 'Find a joke by category',
-        args: {
-          category: {type: GraphQLNonNull(GraphQLString)}
-        },
-        resolve: (parent, args) => {
-          return fetchResponseByURL(`/random?category=${args.category}`)
-          .then((res: Joke) => {
-            console.log('findByCategory: ', res);
-            return res;
-          })
-          .catch( (err:any) => console.log(err));
-        }
-      },
-      searchJoke: {
-        type: new GraphQLList(joke_obj),
-        description: 'Search for a joke. Free text search',
-        args: {
-          query: {type: GraphQLNonNull(GraphQLString)}
-        },
-        resolve: (parent, args) => {
-          return fetchResponseByURL(`/random?search?query=${args.query}`)
-          .then((res:any) => {
-            console.log('searchJoke: ',res);
-            return [res];
-          })
-          .catch( (err:any) => console.log(err));
-        }
-      }
-  })
-})
-
 const schema = new GraphQLSchema({
-    query: RootQueryType,
-    mutation: RootMutationType
+    query: RootQueryType
 })
 
 module.exports = {
