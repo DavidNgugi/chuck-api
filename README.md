@@ -40,7 +40,8 @@ npm run build
 
 ## Accessing the API
 
-Use `http://127.0.0.1:{YOUR_PORT}/graphql` to test. I advise you to use Postman
+Use `http://127.0.0.1:{YOUR_PORT}/graphql` to test locally. I advise you to use Postman.
+The API is also accessible on Heroku at `https://chuck-sovtech-api.herokuapp.com/graphql`
 
 ## Queries and Mutations you have access to
 
