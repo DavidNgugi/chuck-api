@@ -41,7 +41,6 @@ const RootQueryType = new GraphQLObjectType({
       resolve: () => {
         return fetchResponseByURL(`/random`)
         .then((res: Joke ) => {
-          console.log('Random Joke: ',res);
           return res;
         })
         .catch( (err: any) => console.log(err));
@@ -53,7 +52,6 @@ const RootQueryType = new GraphQLObjectType({
       resolve: () => {
         return fetchResponseByURL(`/categories`)
         .then((res: Categories) => {
-          console.log('Categories: ',res);
           return res;
         })
         .catch( (err:any) => console.log(err));
@@ -68,7 +66,6 @@ const RootQueryType = new GraphQLObjectType({
       resolve: (parent, args) => {
         return fetchResponseByURL(`/random?category=${args.category}`)
         .then((res: Joke) => {
-          console.log('findByCategory: ', res);
           return res;
         })
         .catch( (err:any) => console.log(err));
@@ -83,7 +80,6 @@ const RootQueryType = new GraphQLObjectType({
       resolve: (parent, args) => {
         return fetchResponseByURL(`/random?search?query=${args.query}`)
         .then((res:any) => {
-          console.log('searchJoke: ',res);
           return [res];
         })
         .catch( (err:any) => console.log(err));
