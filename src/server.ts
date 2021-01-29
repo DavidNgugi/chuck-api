@@ -9,8 +9,6 @@ const app = express();
 
 app.use(cors());
 
-app.get('/hello', (req:any, res: any) =>  res.send('Hello World!'));
-
 // The GraphQL endpoint
 app.use('/graphql', graphqlHTTP({
     schema: chuck_schema.schema,
